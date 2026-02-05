@@ -16,7 +16,7 @@ export default function AIAssistant() {
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
       // 改用 1.5-flash-latest，这在很多地区更稳定
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       const prompt = `As a crypto risk analyst for AXIOM Labs, evaluate this asset: ${input}. Provide a short summary.`;
       const request = await model.generateContent(prompt);

@@ -4,13 +4,13 @@ import AIAssistant from './components/AIAssistant';
 import Navigation from './components/Navigation';
 import HeroSection from './sections/HeroSection';
 import MethodologySection from './sections/MethodologySection';
+import Dashboard from './pages/Dashboard'; // 重新引入 Dashboard
 
 function HomePage() {
   return (
     <main className="relative z-10">
       <HeroSection />
       <MethodologySection />
-      {/* 只要这个组件在，黑客松要求就达到了 */}
       <div className="max-w-7xl mx-auto px-[7vw] pb-20">
         <AIAssistant />
       </div>
@@ -26,6 +26,8 @@ export default function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          {/* 关键：把丢掉的 Dashboard 路线补回来 */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </Router>
