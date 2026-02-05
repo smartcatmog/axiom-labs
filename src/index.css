@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 48% 4%;
+    --background-secondary: 222 40% 6%;
+    --foreground: 230 60% 97%;
+    --card: 222 40% 8%;
+    --card-foreground: 230 60% 97%;
+    --popover: 222 40% 8%;
+    --popover-foreground: 230 60% 97%;
+    --primary: 11 100% 59%;
+    --primary-foreground: 230 60% 97%;
+    --secondary: 222 30% 12%;
+    --secondary-foreground: 230 60% 97%;
+    --muted: 222 30% 15%;
+    --muted-foreground: 224 20% 72%;
+    --accent: 11 100% 59%;
+    --accent-foreground: 230 60% 97%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 224 20% 18%;
+    --input: 224 20% 18%;
+    --ring: 11 100% 59%;
+    --radius: 1.375rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    background-color: #070A12;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+  
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(11, 15, 28, 0.72);
+    backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid rgba(244, 246, 255, 0.08);
+    border-radius: 22px;
+  }
+  
+  .glass-card {
+    background: rgba(11, 15, 28, 0.65);
+    backdrop-filter: blur(12px) saturate(110%);
+    border: 1px solid rgba(244, 246, 255, 0.06);
+    border-radius: 22px;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #F4F6FF 0%, #A7B0C8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .accent-glow {
+    box-shadow: 0 0 40px rgba(255, 77, 46, 0.3);
+  }
+  
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  
+  .vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(7, 10, 18, 0.6) 100%);
+  }
+  
+  .orbit-ring {
+    animation: orbit-rotate 18s linear infinite;
+  }
+  
+  @keyframes orbit-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .coin-rotate {
+    animation: coin-spin 12s linear infinite;
+  }
+  
+  @keyframes coin-spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+  }
+  
+  .scan-line {
+    animation: scan-move 5s ease-in-out infinite;
+  }
+  
+  @keyframes scan-move {
+    0%, 100% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 0.25; }
+    90% { opacity: 0.25; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+  
+  .metric-breathe {
+    animation: breathe 3s ease-in-out infinite;
+  }
+  
+  @keyframes breathe {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.98); }
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 rounded-[14px] font-medium transition-all duration-300;
+    background: #FF4D2E;
+    color: #F4F6FF;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 77, 46, 0.4);
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 rounded-[14px] font-medium transition-all duration-300;
+    background: rgba(244, 246, 255, 0.08);
+    color: #F4F6FF;
+    border: 1px solid rgba(244, 246, 255, 0.12);
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(244, 246, 255, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  .section-pinned {
+    @apply w-screen h-screen relative overflow-hidden;
+  }
+  
+  .text-primary-light {
+    color: #F4F6FF;
+  }
+  
+  .text-secondary-light {
+    color: #A7B0C8;
+  }
+  
+  .accent-coral {
+    color: #FF4D2E;
+  }
+  
+  .bg-navy-primary {
+    background-color: #070A12;
+  }
+  
+  .bg-navy-secondary {
+    background-color: #0B0F1C;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
