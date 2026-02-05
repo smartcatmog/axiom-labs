@@ -87,7 +87,7 @@ export default function HeroSection() {
                 {t.hero.cardDesc}
               </p>
               <a 
-                href="#methodology" 
+                href="#/dashboard" 
                 className="text-accent-coral text-sm font-medium flex items-center gap-1 hover:underline"
               >
                 {t.hero.cardLink}
