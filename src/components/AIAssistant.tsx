@@ -7,7 +7,7 @@ export default function AIAssistant() {
   const [loading, setLoading] = useState(false);
 
   // ⚠️ 确保填入你那个以 ...VDFc 结尾的 Key
-  const API_KEY = "AIzaSyCLvSK5aB-u91zuzUM-u7pUsnwSjPIVDFc"; 
+  const API_KEY = "AIzaSyCiYaDkmMq0YQ2-YQcPqR9U9229Peos-5U"; 
 
   const handleAsk = async () => {
     if (!input) return;
