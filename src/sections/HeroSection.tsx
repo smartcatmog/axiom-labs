@@ -1,49 +1,72 @@
-import React from 'react';
-import { AlertTriangle, Shield, Activity } from 'lucide-react';
+import { useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-export default function MethodologySection() {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function HeroSection() {
+  const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // 动画效果
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const content = contentRef.current;
+    if (!section || !content) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(content.children,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
+      );
+    }, section);
+    return () => ctx.revert();
+  }, []);
+
+  // 安全获取翻译内容（防止因字典缺失导致白屏）
+  const hero = t?.hero || {};
+
   return (
-    <section id="methodology" className="min-h-screen bg-navy-primary py-20 text-white px-[7vw]">
-      <div className="max-w-7xl mx-auto">
-        <span className="text-accent-coral font-mono text-sm uppercase tracking-widest block mb-4">Methodology</span>
-        <h2 className="text-5xl font-bold mb-8">AXIOM Framework</h2>
-        
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          <div className="glass-panel p-8 border-l-4 border-accent-coral">
-            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <AlertTriangle className="text-accent-coral" /> 
-              What we solve?
-            </h3>
-            <p className="text-secondary-light leading-relaxed">
-              We solve the "Order of Death" in the crypto market. While traditional ratings focus on static assets, AXIOM focuses on real-time liquidity fractures and survival under extreme pressure.
+    <section ref={sectionRef} className="min-h-screen bg-navy-primary flex items-center justify-center relative overflow-hidden pt-20 text-white">
+      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-[7vw] py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center text-left">
+          {/* 左侧：文字内容 */}
+          <div className="space-y-8">
+            <h1 className="font-bold leading-[0.95] text-white" style={{ fontSize: 'clamp(40px, 5vw, 72px)' }}>
+              <span className="block">{hero.title1 || "See the risk"}</span>
+              <span className="block">{hero.title2 || "before the"}</span>
+              <span className="block">{hero.title3 || "market does."}</span>
+            </h1>
+            <p className="text-gray-400 text-lg max-w-md leading-relaxed">
+              {hero.desc || "A real-time risk oracle for stablecoins and crypto assets."}
             </p>
-          </div>
-          
-          <div className="glass-panel p-8 border-l-4 border-emerald-500">
-            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <Shield className="text-emerald-500" /> 
-              Survival First
-            </h3>
-            <p className="text-secondary-light leading-relaxed">
-              Solvency does not equal Survivability. A project can be fully audited and still collapse in seconds if liquidity evaporates. AXIOM is your early warning system.
-            </p>
-          </div>
-        </div>
-
-        {/* 简单的三条法则 */}
-        <div className="space-y-6">
-          <div className="bg-white/5 p-6 rounded-2xl flex gap-6 items-center">
-            <div className="text-4xl font-black text-white/10 italic">01</div>
-            <div>
-              <h4 className="font-bold text-xl">Reject Bias</h4>
-              <p className="text-secondary-light text-sm">We ignore APY. We only care about Max Drawdown.</p>
+            
+            <div className="flex flex-wrap gap-4">
+              {/* 链接到 Dashboard 页面 */}
+              <a href="#/dashboard" className="bg-[#ff4d4f] hover:bg-opacity-90 text-white font-bold px-8 py-3 rounded-xl flex items-center gap-2 no-underline transition-all shadow-lg">
+                {hero.btnDemo || "Demo"}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              {/* 链接到下方 Methodology 锚点 */}
+              <a href="#methodology" className="border border-white/20 hover:bg-white/5 text-white font-bold px-8 py-3 rounded-xl flex items-center gap-2 no-underline transition-all">
+                {hero.btnEngine || "Engine"}
+                <ChevronRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
-          <div className="bg-white/5 p-6 rounded-2xl flex gap-6 items-center">
-            <div className="text-4xl font-black text-white/10 italic">02</div>
-            <div>
-              <h4 className="font-bold text-xl">Structured Risk</h4>
-              <p className="text-secondary-light text-sm">All risks are embedded in technical structures, not just market sentiment.</p>
+
+          {/* 右侧：硬币和评分卡片 */}
+          <div className="relative flex flex-col items-center gap-8">
+            <img src="/hero-coin.png" alt="AXIOM" className="w-[280px] md:w-[360px] h-auto coin-rotate" />
+            <div className="glass-panel p-6 w-full max-w-md text-left">
+              <h3 className="text-white font-semibold text-lg mb-3">{hero.cardTitle || "Risk Score"}</h3>
+              <p className="text-gray-400 text-sm mb-4">{hero.cardDesc || "0-100 index mapping stability."}</p>
+              <a href="#/dashboard" className="text-[#ff4d4f] text-sm font-medium flex items-center gap-1 hover:underline">
+                {hero.cardLink || "Explore"}
+                <ChevronRight className="w-3 h-3" />
+              </a>
             </div>
           </div>
         </div>
