@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
+import AIAssistant from './components/AIAssistant'; // 引入 AI
 import Navigation from './components/Navigation';
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
@@ -24,6 +25,11 @@ function HomePage() {
       <InstitutionsSection />
       <SecuritySection />
       <ContactSection />
+      
+      {/* AI 助手展示区域 */}
+      <div className="max-w-7xl mx-auto px-[7vw] pb-20">
+        <AIAssistant />
+      </div>
     </main>
   );
 }
